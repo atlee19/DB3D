@@ -12,6 +12,7 @@ db3d.transpile = function(code){
     this.scanner(code);
 }
 
-const code = 'Green Cube Size 1 Position 0 0 -1';
+// const code = 'Green Cube Size 1 Position 0 0 -1';
+const code = 'sdaa Cube Size 1 Position 0 0 -1';
 const transpiled_result = db3d.transpile(code);
 //document append script
