@@ -106,7 +106,7 @@ export default function parser(tokens){
                 }
                 break;
                 
-                case 'Size':
+            case 'Size':
                     var size_expression = {
                         type : 'CallExpression',
                         name : current_token.value,
@@ -127,7 +127,39 @@ export default function parser(tokens){
                         throw 'Size must be followed by a Number';
                     }
 
-                    break;
+                break;
+
+            case 'Position':
+                var position_expression = {
+                    type : 'CallExpression',
+                    name : current_token.value,
+                    arguments : []
+                }
+                let EXPECTED_NUM_ARGS=3;
+                for(let i=0; i < EXPECTED_NUM_ARGS; i++){
+                    var position_argument = tokens.shift();
+                    if(position_argument.type == 'Number'){
+                        position_expression.arguments.push({
+                            type : 'NumberLiteral',
+                            value : position_argument.value
+                        })
+                    }
+                    else
+                    {
+                        throw 'Position takes a Number';
+                    }
+                }
+                let num_args_found = position_expression.arguments.length;
+                if(num_args_found == EXPECTED_NUM_ARGS){
+                    //add to AST
+                    AST.body.push(position_expression);
+                } 
+                else 
+                {
+                    throw 'Position takes (3) arguments';
+                }
+
+                break;
         }
 
     }//end of while loop
