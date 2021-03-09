@@ -1,7 +1,7 @@
 //3 syntax types 
 //ObjectLiteral Shape Scene
 //NumberLiteral - 1, 0, 0, -1
-//CallExpression Color Size, Position
+//CallExpression Color, Size, Position
 
 //Color will call Shape. It feels a bit awkward because color
 //feels more like a parameter but it will make sense in the long run.
@@ -71,28 +71,28 @@ export default function parser(tokens){
         switch(current_token.type){
             case 'Color':
                 //build a call expression
-                var expression = {
+                var color_expression = {
                     type : 'CallExpression',
                     name : current_token.value,
                     arguments : []
                 }
-                //get the arguments - can either be a shape or scene
-                var argument = tokens.shift();
-                if(argument.type == 'Shape'){
-                    expression.arguments.push({
+                //get the arguments - can either be a shape OR scene
+                var color_argument = tokens.shift();
+                if(color_argument.type == 'Shape'){
+                    color_expression.arguments.push({
                         type : 'ObjectLiteral',
-                        value : argument.value
+                        value : color_argument.value
                     });
                     //add to AST
-                    AST.body.push(expression);
+                    AST.body.push(color_expression);
                 }
-                else if(argument.type == 'Scene'){
+                else if(color_argument.type == 'Scene'){
                     if(!scene_obj_present){ //scene can only happen once
-                        expression.arguments.push({
+                        color_expression.arguments.push({
                             type : 'ObjectLiteral',
-                            value : argument.value
+                            value : color_argument.value
                         })
-                        AST.body.push(expression);
+                        AST.body.push(color_expression);
                         scene_obj_present = true;
                     } 
                     else{
@@ -104,7 +104,30 @@ export default function parser(tokens){
                     //this isn't incredibly descriptive
                     throw 'Color must be followed by a ObjectLiteral.'; 
                 }
-                break;    
+                break;
+                
+                case 'Size':
+                    var size_expression = {
+                        type : 'CallExpression',
+                        name : current_token.value,
+                        arguments : []
+                    }
+                    //get size argument HAS to be a Number
+                    var size_argument = tokens.shift();
+                    if(size_argument.type == 'Number'){
+                        size_expression.arguments.push({
+                            type : 'NumberLiteral',
+                            value : size_argument.value
+                        })
+                        //add to AST
+                        AST.body.push(size_expression)
+                    }
+                    else
+                    {
+                        throw 'Size must be followed by a Number';
+                    }
+
+                    break;
         }
 
     }//end of while loop

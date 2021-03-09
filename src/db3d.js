@@ -33,5 +33,11 @@ const code = `
     Green Cube Size 1 Position 0 0 -1
 `;
 
+//faulty arugments
+// const code = `
+//     Black Scene
+//     Green Cube Size aa Position 0 0 -1
+// `;
+
 const transpiled_result = db3d.transpile(code);
 //document append script
