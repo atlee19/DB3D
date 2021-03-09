@@ -14,6 +14,8 @@
 //A call expression should always have correct # arugments but the whole 
 //sentence above is not required
 
+//The AST is responsbile for a lot of error handling 
+
 //Goal: take this stream of tokens and build it into an AST 
 //      that adheres to our grammer
 //Input: {type: "Color", value: "Green"}
@@ -102,7 +104,7 @@ export default function parser(tokens){
                 else //we don't know is following color
                 {
                     //this isn't incredibly descriptive
-                    throw 'Color must be followed by a ObjectLiteral.'; 
+                    throw '[Syntax error]: Color must be followed by a ObjectLiteral.'; 
                 }
                 break;
                 
@@ -124,7 +126,7 @@ export default function parser(tokens){
                     }
                     else
                     {
-                        throw 'Size must be followed by a Number';
+                        throw '[Syntax error]: Size must be followed by a Number';
                     }
 
                 break;
@@ -138,32 +140,32 @@ export default function parser(tokens){
                 let EXPECTED_NUM_ARGS=3;
                 for(let i=0; i < EXPECTED_NUM_ARGS; i++){
                     var position_argument = tokens.shift();
-                    if(position_argument.type == 'Number'){
-                        position_expression.arguments.push({
-                            type : 'NumberLiteral',
-                            value : position_argument.value
-                        })
+                    if(position_argument != undefined){
+                        if(position_argument.type == 'Number'){
+                            position_expression.arguments.push({
+                                type : 'NumberLiteral',
+                                value : position_argument.value
+                            })
+                        }
+                        else
+                        {
+                            throw '[Syntax error]: Position takes a Number';
+                        }
                     }
-                    else
-                    {
-                        throw 'Position takes a Number';
-                    }
+
                 }
                 let num_args_found = position_expression.arguments.length;
-                if(num_args_found == EXPECTED_NUM_ARGS){
-                    //add to AST
-                    AST.body.push(position_expression);
-                } 
-                else 
-                {
-                    throw 'Position takes (3) arguments';
-                }
 
+                if(num_args_found == EXPECTED_NUM_ARGS)
+                    AST.body.push(position_expression); //add to AST
+                else 
+                    throw `[Syntax error]: Position takes (3) Number arguments. There are ${num_args_found} found.`;
+                
                 break;
         }
 
     }//end of while loop
 
-    console.log(AST);
+    return AST;
 
 }

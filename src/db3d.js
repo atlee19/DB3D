@@ -12,8 +12,12 @@ db3d.transpile = function(code){
     let tokens = this.scanner(code);
     console.log('TOKENS:');
     console.log(tokens);
-    this.parser(tokens);
+    let AST = this.parser(tokens);
+    console.log('AST:');
+    console.log(AST);
 }
+
+//TEST CASES
 
 //good code
 // const code = 'Green Cube Size 1 Position 0 0 -1'; 
@@ -28,6 +32,7 @@ db3d.transpile = function(code){
 // const code = 'Black Scene'; 
 //it should be optional. Like in DBN if paper is not present then its just white
 
+//good multiline
 const code = `
     Black Scene
     Green Cube Size 1 Position 0 0 -1
@@ -36,8 +41,16 @@ const code = `
 //faulty arugments
 // const code = `
 //     Black Scene
-//     Green Cube Size aa Position 0 0 -1
+//     Green Cube Size 1 Position 11 -1
 // `;
+/*
+    If a user fixes 1 syntax error then another pops up right after they fix it
+    they're going to get stuck in a game of wackamole. Since we have such a simplistic
+    language we might not need to handles this but take it under consideration.
+*/
+
+
+
 
 const transpiled_result = db3d.transpile(code);
 //document append script

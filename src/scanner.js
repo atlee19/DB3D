@@ -17,7 +17,7 @@
 
 /*
     Possibile errors:
-    - What about new line? \n
+    - Might need to create a seperate error reporting object
 */
 
 export default function scanner(source){
@@ -27,7 +27,6 @@ export default function scanner(source){
     //ignore all whitespace
     const words = source.replaceAll(/\s/g, ' ').split(' ');
     //array["Green", "Cube", "Size", "1", "Position", "0", "0", "-1"]
-    var no_error_present = true;
 
     const keywords = new Map([
         ['Red', 'Color'],
@@ -42,13 +41,12 @@ export default function scanner(source){
         ['Position', 'Position']
     ])
 
-    words.every(word => {
+    words.forEach(word => {
        //if it matches a keyword in the color map
        //the token should look like this 'Color' : 'Green'
        if(isNaN(word)){
            if (keywords.has(word)){
                 tokens.push({ type : keywords.get(word), value : word });
-                return no_error_present;
            }
            //not in our keyword map
            else 
@@ -57,8 +55,8 @@ export default function scanner(source){
                 //instead of pausing execution? And then when theres an error 
                 //in the ast we can display them all.
                 console.log(`%c [Scanning error] Unrecognized word: ${word}`, 'color : red');
-                no_error_present = false;
-                return no_error_present;
+                //consume it and the parser will take care of it - not best solution
+                tokens.push({ type : 'unrecognized', value : word });
            }
        }
        //is a number or whitespace
@@ -66,9 +64,7 @@ export default function scanner(source){
            if(word != ""){
                 //don't do type conversion yet
                 tokens.push({ type : 'Number', value : word });
-                return no_error_present;
            }
-           return no_error_present;
        }
 
        //match a keyword in the shapes map
