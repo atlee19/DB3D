@@ -8,11 +8,11 @@
 
 //Define our grammer (how strict it is)
 
-//Color Shape Size Number Position Number Number Number
+//---> Color Shape Size Number Position Number Number Number
 
 //its only strict in the sense of our syntax types. 
 //A call expression should always have correct # arugments but the whole 
-//sentence above is not required
+//sentence above is not required (ex. Black Scene)
 
 //The AST is responsbile for a lot of error handling 
 
@@ -101,10 +101,9 @@ export default function parser(tokens){
                         throw 'Scene has already been declared';
                     }
                 }
-                else //we don't know is following color
+                else //we don't know what is following color
                 {
-                    //this isn't incredibly descriptive
-                    throw '[Syntax error]: Color must be followed by a ObjectLiteral.'; 
+                    throw '[Syntax error]: Color must be followed by either a Shape or Scene.'; 
                 }
                 break;
                 
