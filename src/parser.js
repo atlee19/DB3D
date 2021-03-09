@@ -68,42 +68,43 @@ export default function parser(tokens){
         const current_token = tokens.shift(); //grabs token at beginning of array
 
         //should we use switch case instead?
-        
-        if(current_token.type == 'Color'){
-            //build a call expression
-            var expression = {
-                type : 'CallExpression',
-                name : current_token.value,
-                arguments : []
-            }
-            //get the arguments - can either be a shape or scene
-            var argument = tokens.shift();
-            if(argument.type == 'Shape'){
-                expression.arguments.push({
-                    type : 'ObjectLiteral',
-                    value : argument.value
-                });
-                //add to AST
-                AST.body.push(expression);
-            }
-            else if(argument.type == 'Scene'){
-                if(!scene_obj_present){ //scene can only happen once
+        switch(current_token.type){
+            case 'Color':
+                //build a call expression
+                var expression = {
+                    type : 'CallExpression',
+                    name : current_token.value,
+                    arguments : []
+                }
+                //get the arguments - can either be a shape or scene
+                var argument = tokens.shift();
+                if(argument.type == 'Shape'){
                     expression.arguments.push({
                         type : 'ObjectLiteral',
                         value : argument.value
-                    })
+                    });
+                    //add to AST
                     AST.body.push(expression);
-                    scene_obj_present = true;
-                } 
-                else{
-                    throw 'Scene has already been declared';
                 }
-            }
-            else //we don't know is following color
-            {
-                //this isn't incredibly descriptive
-                throw 'Color must be followed by a ObjectLiteral.'; 
-            }
+                else if(argument.type == 'Scene'){
+                    if(!scene_obj_present){ //scene can only happen once
+                        expression.arguments.push({
+                            type : 'ObjectLiteral',
+                            value : argument.value
+                        })
+                        AST.body.push(expression);
+                        scene_obj_present = true;
+                    } 
+                    else{
+                        throw 'Scene has already been declared';
+                    }
+                }
+                else //we don't know is following color
+                {
+                    //this isn't incredibly descriptive
+                    throw 'Color must be followed by a ObjectLiteral.'; 
+                }
+                break;    
         }
 
     }//end of while loop
