@@ -6,7 +6,16 @@
 //Color will call Shape. It feels a bit awkward because color
 //feels more like a parameter but it will make sense in the long run.
 
-//Goal: take this stream of tokens and build it into an AST
+//Define our grammer (how strict it is)
+
+//Color Shape Size Number Position Number Number Number
+
+//its only strict in the sense of our syntax types. 
+//A call expression should always have correct # arugments but the whole 
+//sentence above is not required
+
+//Goal: take this stream of tokens and build it into an AST 
+//      that adheres to our grammer
 //Input: {type: "Color", value: "Green"}
 /* Output: AST {
 "type": "Scene",
@@ -51,9 +60,14 @@ export default function parser(tokens){
         type : 'Scene',
         body : []
     }
+    //we need to prevent duplication of scene objects 
+    // var scene_obj_present=false;
+    //just send an error saying 'Scene has already been declared'
 
     while(tokens.length > 0){
         const current_token = tokens.shift(); //grabs token at beginning of array
+
+        //should we use switch case instead?
         
         if(current_token.type == 'Color'){
             //build a call expression
