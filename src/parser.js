@@ -1,5 +1,5 @@
 //3 syntax types 
-//ObjectLiteral Shape
+//ObjectLiteral Shape Scene
 //NumberLiteral - 1, 0, 0, -1
 //CallExpression Color Size, Position
 
@@ -61,7 +61,7 @@ export default function parser(tokens){
         body : []
     }
     //we need to prevent duplication of scene objects 
-    // var scene_obj_present=false;
+    var scene_obj_present=false;
     //just send an error saying 'Scene has already been declared'
 
     while(tokens.length > 0){
@@ -76,7 +76,7 @@ export default function parser(tokens){
                 name : current_token.value,
                 arguments : []
             }
-            //get the arguments
+            //get the arguments - can either be a shape or scene
             var argument = tokens.shift();
             if(argument.type == 'Shape'){
                 expression.arguments.push({
@@ -86,7 +86,20 @@ export default function parser(tokens){
                 //add to AST
                 AST.body.push(expression);
             }
-            else 
+            else if(argument.type == 'Scene'){
+                if(!scene_obj_present){ //scene can only happen once
+                    expression.arguments.push({
+                        type : 'ObjectLiteral',
+                        value : argument.value
+                    })
+                    AST.body.push(expression);
+                    scene_obj_present = true;
+                } 
+                else{
+                    throw 'Scene has already been declared';
+                }
+            }
+            else //we don't know is following color
             {
                 //this isn't incredibly descriptive
                 throw 'Color must be followed by a ObjectLiteral.'; 

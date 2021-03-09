@@ -26,7 +26,6 @@ export default function scanner(source){
     //only keywords. so no reason to sift through each char we can split each word
     //ignore all whitespace
     const words = source.replaceAll(/\s/g, ' ').split(' ');
-    console.log(words);
     //array["Green", "Cube", "Size", "1", "Position", "0", "0", "-1"]
     var no_error_present = true;
 

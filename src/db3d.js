@@ -12,7 +12,7 @@ db3d.transpile = function(code){
     let tokens = this.scanner(code);
     console.log('TOKENS:');
     console.log(tokens);
-    // this.parser(tokens);
+    this.parser(tokens);
 }
 
 //good code
