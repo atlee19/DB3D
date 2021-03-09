@@ -47,6 +47,40 @@ end of body
     // 7: {type: "Number", value: -1}
 
 export default function parser(tokens){
-    
+    var AST = {
+        type : 'Scene',
+        body : []
+    }
+
+    while(tokens.length > 0){
+        const current_token = tokens.shift(); //grabs token at beginning of array
+        
+        if(current_token.type == 'Color'){
+            //build a call expression
+            var expression = {
+                type : 'CallExpression',
+                name : current_token.value,
+                arguments : []
+            }
+            //get the arguments
+            var argument = tokens.shift();
+            if(argument.type == 'Shape'){
+                expression.arguments.push({
+                    type : 'ObjectLiteral',
+                    value : argument.value
+                });
+                //add to AST
+                AST.body.push(expression);
+            }
+            else 
+            {
+                //this isn't incredibly descriptive
+                throw 'Color must be followed by a ObjectLiteral.'; 
+            }
+        }
+
+    }//end of while loop
+
+    console.log(AST);
 
 }

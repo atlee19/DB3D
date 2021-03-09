@@ -17,6 +17,7 @@
 
 /*
     Possibile errors:
+    - What about new line? \n
 */
 
 export default function scanner(source){
@@ -47,6 +48,9 @@ export default function scanner(source){
                 return no_error_present;
            }
            else {
+               //we should keep a list of unrecognized words causing errors
+               //instead of pausing execution? And then when theres an error 
+               //in the ast we can display them all.
                console.log(`%c Unrecognized word: ${word}`, 'color : red');
                no_error_present = false;
                return no_error_present;
