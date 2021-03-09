@@ -65,6 +65,7 @@ export default function scanner(source){
       //there are 2 possible styles for the rest
 
       //match a param-oriented keywords map 
+      //NOPE - this is not the job of a scanner/lexer 
       //the token should be 'Size' : 1 and 'Position' : {x : 0, y : 0, z : 0}
       //in this manner checks can be performed right away
 

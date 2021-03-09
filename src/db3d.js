@@ -21,5 +21,9 @@ const code = 'Green Cube Size 1 Position 0 0 -1';
 
 //unrecognized word
 // const code = 'sdaa Cube Size 1 Position 0 0 -1';
+
+//essential scene setup
+// const code = 'Black Scene';
+
 const transpiled_result = db3d.transpile(code);
 //document append script
