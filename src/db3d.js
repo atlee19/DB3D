@@ -1,15 +1,16 @@
 import scanner from './scanner.js';
-
+import parser from './parser.js';
 
 var db3d = {}
 db3d.version = '0.0.1';
 db3d.scanner = scanner;
-// db3d.parser = parser;
+db3d.parser = parser;
 // db3d.transformer = transformer;
 // db3d.codegen = codegen;
 
 db3d.transpile = function(code){
-    this.scanner(code);
+    let tokens = this.scanner(code);
+    this.parser(tokens);
 }
 
 //good code

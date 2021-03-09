@@ -72,6 +72,6 @@ export default function scanner(source){
 
     });
 
-    console.log(tokens);
+    return tokens;
 
 }
