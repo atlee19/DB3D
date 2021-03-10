@@ -3,7 +3,7 @@
 //should we create a file or return one large string?
 
 export default function codegen(three_ast){
-    console.log(three_ast);
+    // console.log(three_ast);
     var code_result = ``;
 
     //intial scene setup
@@ -17,6 +17,21 @@ export default function codegen(three_ast){
     code_result += `\n`
 
     //add our scene objects and check for scene alterations
+    while(three_ast.body.length > 0){
+        var current_node = three_ast.body.shift();
+        // console.log(current_node);
+        switch(current_node.tag){
+            case 'SceneAlteration':
+                let color = current_node.attr.background;
+                let new_color = `0x${color_transform(color)}`
+                code_result += `scene.background = new THREE.Color( ${new_color} ); \n`;
+                break;
+
+            case 'SceneObject':
+                //pass
+                break;
+        }
+    }
 
     //animation
     code_result += `const animate = function () { \n`
@@ -29,12 +44,12 @@ export default function codegen(three_ast){
     return code_result;
 }
 
-function color_transformation(color){
+function color_transform(color){
     var hex_color_map = new Map([
-        ['Red', 0xff002f],
-        ['Green', 0x09ff00],
-        ['Blue', 0x0091ff],
-        ['Black', 0x000000],
+        ['Red', 'ff002f'],
+        ['Green', '09ff00'],
+        ['Blue', '0091ff'],
+        ['Black', '000000'],
     ])
 
     return hex_color_map.get(color);

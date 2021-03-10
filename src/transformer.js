@@ -66,7 +66,8 @@ export default function transformer(AST){
             //or it can or a shape literal where we have to grab next 3 things
             else if(node.arguments[0].type === 'ShapeLiteral'){
                 var scene_object = {
-                    tag : `SceneObject_${++scene_object_count}`,
+                    tag : 'SceneObject',
+                    id : ++scene_object_count,
                     attr : {
                         color : node.name,
                         geometry : node.arguments[0].value,
