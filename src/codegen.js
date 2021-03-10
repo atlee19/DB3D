@@ -19,16 +19,36 @@ export default function codegen(three_ast){
     //add our scene objects and check for scene alterations
     while(three_ast.body.length > 0){
         var current_node = three_ast.body.shift();
-        // console.log(current_node);
+        console.log(current_node);
         switch(current_node.tag){
             case 'SceneAlteration':
-                let color = current_node.attr.background;
-                let new_color = `0x${color_transform(color)}`
-                code_result += `scene.background = new THREE.Color( ${new_color} ); \n`;
+                //generate new background color
+                let bg_color = current_node.attr.background;
+                let new_bg_color = `0x${color_transform(bg_color)}`;
+                code_result += `scene.background = new THREE.Color( ${new_bg_color} ); \n`;
+                code_result += `\n`
                 break;
 
             case 'SceneObject':
-                //pass
+                let id = current_node.id;
+                let objectName = `${current_node.attr.geometry}_${id}`;
+                //setup geometry
+                let shapeType = shape_transform(current_node.attr.geometry);
+                code_result += `const geometry_${id} = new THREE.${shapeType}(); \n`;
+                //set color
+                let shape_color = current_node.attr.color;
+                shape_color = `0x${color_transform(shape_color)}`;
+                code_result += `const material_${id} = new THREE.MeshBasicMaterial( { color: ${shape_color} } ); \n`;
+                code_result += `const ${objectName} = new THREE.Mesh( geometry_${id}, material_${id} ); \n`;
+                //add to scene
+                code_result += `scene.add(${objectName}); \n`;
+                //set position
+                let x = parseFloat(current_node.attr.pos.x);
+                let y = parseFloat(current_node.attr.pos.y);
+                let z = parseFloat(current_node.attr.pos.z);
+                code_result += `${objectName}.position.set(${x}, ${y}, ${z}); \n`;
+
+                code_result += `\n`
                 break;
         }
     }
@@ -43,6 +63,17 @@ export default function codegen(three_ast){
     console.log(code_result);
     return code_result;
 }
+
+function shape_transform(shape){
+    var shape_three_map = new Map([
+        ['Cube', 'BoxGeometry']
+        //add sphere
+        //add etc.
+    ])
+
+    return shape_three_map.get(shape);
+}
+
 
 function color_transform(color){
     var hex_color_map = new Map([
