@@ -20,7 +20,11 @@ db3d.transpile = function(code){
     let three_ast = this.transformer(ast);
     // console.log('Three AST:')
     // console.log(three_ast);
-    this.codegen(three_ast);
+    let code_result = this.codegen(three_ast);
+
+    let script = document.createElement('script');
+    script.innerHTML = code_result;
+    document.body.appendChild(script);
 }
 
 //TEST CASES
