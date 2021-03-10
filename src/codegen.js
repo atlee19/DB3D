@@ -22,7 +22,6 @@ export default function codegen(three_ast){
     //add our scene objects and check for scene alterations
     while(three_ast.body.length > 0){
         var current_node = three_ast.body.shift();
-        console.log(current_node);
         switch(current_node.tag){
             case 'SceneAlteration':
                 //generate new background color
@@ -63,7 +62,6 @@ export default function codegen(three_ast){
     code_result += `}; \n`;
     code_result += `animate();`;
 
-    console.log(code_result);
     return code_result;
 }
 

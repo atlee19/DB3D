@@ -12,16 +12,16 @@ db3d.codegen = codegen;
 
 db3d.transpile = function(code){
     let tokens = this.scanner(code);
-    // console.log('TOKENS:');
-    // console.log(tokens);
+    console.log('TOKENS:');
+    console.log(tokens);
     let ast = this.parser(tokens);
-    // console.log('AST:');
-    // console.log(ast);
+    console.log('AST:');
+    console.log(ast);
     let three_ast = this.transformer(ast);
-    // console.log('Three AST:')
-    // console.log(three_ast);
+    console.log('Three AST:')
+    console.log(three_ast);
     let code_result = this.codegen(three_ast);
-
+    console.log(code_result);
     let script = document.createElement('script');
     script.innerHTML = code_result;
     document.body.appendChild(script);
