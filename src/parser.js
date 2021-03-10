@@ -76,13 +76,14 @@ export default function parser(tokens){
                 var color_expression = {
                     type : 'CallExpression',
                     name : current_token.value,
+                    start_of_expression : true,
                     arguments : []
                 }
                 //get the arguments - can either be a shape OR scene
                 var color_argument = tokens.shift();
                 if(color_argument.type == 'Shape'){
                     color_expression.arguments.push({
-                        type : 'ObjectLiteral',
+                        type : 'ShapeLiteral',
                         value : color_argument.value
                     });
                     //add to AST
@@ -91,7 +92,7 @@ export default function parser(tokens){
                 else if(color_argument.type == 'Scene'){
                     if(!scene_obj_present){ //scene can only happen once
                         color_expression.arguments.push({
-                            type : 'ObjectLiteral',
+                            type : 'SceneLiteral',
                             value : color_argument.value
                         })
                         AST.body.push(color_expression);
@@ -111,6 +112,7 @@ export default function parser(tokens){
                     var size_expression = {
                         type : 'CallExpression',
                         name : current_token.value,
+                        start_of_expression : false,
                         arguments : []
                     }
                     //get size argument HAS to be a Number
@@ -134,6 +136,7 @@ export default function parser(tokens){
                 var position_expression = {
                     type : 'CallExpression',
                     name : current_token.value,
+                    start_of_expression : false,
                     arguments : []
                 }
                 let EXPECTED_NUM_ARGS=3;

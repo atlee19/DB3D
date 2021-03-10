@@ -11,11 +11,11 @@ db3d.transformer = transformer;
 
 db3d.transpile = function(code){
     let tokens = this.scanner(code);
-    console.log('TOKENS:');
-    console.log(tokens);
+    // console.log('TOKENS:');
+    // console.log(tokens);
     let AST = this.parser(tokens);
-    console.log('AST:');
-    console.log(AST);
+    // console.log('AST:');
+    // console.log(AST);
     this.transformer(AST);
 }
 
@@ -38,6 +38,7 @@ db3d.transpile = function(code){
 const code = `
     Black Scene
     Green Cube Size 1 Position 0 0 -1
+    Blue Cube Size 2 Position 2 0 0
 `;
 
 //faulty arugments
