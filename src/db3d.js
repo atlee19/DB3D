@@ -1,24 +1,26 @@
 import scanner from './scanner.js';
 import parser from './parser.js';
 import transformer from './transformer.js';
+import codegen from './codegen.js';
 
 var db3d = {}
 db3d.version = '0.0.1';
 db3d.scanner = scanner;
 db3d.parser = parser;
 db3d.transformer = transformer;
-// db3d.codegen = codegen;
+db3d.codegen = codegen;
 
 db3d.transpile = function(code){
     let tokens = this.scanner(code);
-    console.log('TOKENS:');
-    console.log(tokens);
+    // console.log('TOKENS:');
+    // console.log(tokens);
     let ast = this.parser(tokens);
-    console.log('AST:');
-    console.log(ast);
+    // console.log('AST:');
+    // console.log(ast);
     let three_ast = this.transformer(ast);
-    console.log('Three AST:')
-    console.log(three_ast);
+    // console.log('Three AST:')
+    // console.log(three_ast);
+    this.codegen(three_ast);
 }
 
 //TEST CASES
