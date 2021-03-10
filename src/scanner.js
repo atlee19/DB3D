@@ -33,6 +33,7 @@ export default function scanner(source){
         ['Green', 'Color'],
         ['Blue', 'Color'],
         ['Black', 'Color'],
+        ['White', 'Color'],
         ['Cube', 'Shape'],
         ['Sphere', 'Shape'],
         ['Cone', 'Shape'],
@@ -54,7 +55,7 @@ export default function scanner(source){
                 //we should keep a list of unrecognized words causing errors
                 //instead of pausing execution? And then when theres an error 
                 //in the ast we can display them all.
-                console.log(`%c [Scanning error] Unrecognized word: ${word}`, 'color : red');
+                console.log(`%c [Scanning error]: Unrecognized word: ${word}`, 'color : red');
                 //consume it and the parser will take care of it - not best solution
                 tokens.push({ type : 'unrecognized', value : word });
            }
