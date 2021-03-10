@@ -1,11 +1,12 @@
 import scanner from './scanner.js';
 import parser from './parser.js';
+import transformer from './transformer.js';
 
 var db3d = {}
 db3d.version = '0.0.1';
 db3d.scanner = scanner;
 db3d.parser = parser;
-// db3d.transformer = transformer;
+db3d.transformer = transformer;
 // db3d.codegen = codegen;
 
 db3d.transpile = function(code){
@@ -15,6 +16,7 @@ db3d.transpile = function(code){
     let AST = this.parser(tokens);
     console.log('AST:');
     console.log(AST);
+    this.transformer(AST);
 }
 
 //TEST CASES
