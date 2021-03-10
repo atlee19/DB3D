@@ -45,8 +45,8 @@ db3d.transpile = function(code){
 //good multiline
 const code = `
     Black Scene
-    Green Cube Size 1 Position 0 0 -10
-    Blue Cube Size 2 Position 2 0 -10
+    Green Cube Size 1 Position 0 0 -1
+    Blue Cube Size 2 Position 2 0 -1
 `;
 
 //faulty arugments

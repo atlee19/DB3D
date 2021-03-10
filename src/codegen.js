@@ -1,6 +1,8 @@
 //alot of what we'll be doing in here involves metaprogramming
-
+//this is really where the transpiling takes place. Javascript/three.js 
+//is our target.
 //should we create a file or return one large string?
+//go with 1 large string for now.
 
 export default function codegen(three_ast){
     // console.log(three_ast);
@@ -11,6 +13,7 @@ export default function codegen(three_ast){
     let default_color = three_ast.attr.background;
     code_result += `scene.background = new THREE.Color( ${default_color} ); \n`;
     code_result += `const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 ); \n`;
+    code_result += `camera.position.z = 5; \n`;
     code_result += `const renderer = new THREE.WebGLRenderer(); \n`;
     code_result += `renderer.setSize( window.innerWidth, window.innerHeight ); \n`;
     code_result += `document.body.appendChild( renderer.domElement ); \n`
