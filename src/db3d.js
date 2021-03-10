@@ -11,12 +11,14 @@ db3d.transformer = transformer;
 
 db3d.transpile = function(code){
     let tokens = this.scanner(code);
-    // console.log('TOKENS:');
-    // console.log(tokens);
-    let AST = this.parser(tokens);
-    // console.log('AST:');
-    // console.log(AST);
-    this.transformer(AST);
+    console.log('TOKENS:');
+    console.log(tokens);
+    let ast = this.parser(tokens);
+    console.log('AST:');
+    console.log(ast);
+    let three_ast = this.transformer(ast);
+    console.log('Three AST:')
+    console.log(three_ast);
 }
 
 //TEST CASES

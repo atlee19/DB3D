@@ -40,9 +40,8 @@ Output:
   }] END OF BODY
 }
 */
-
 export default function transformer(AST){
-    var three_ast = {
+    var three_ast = { //this could also be called a concrete syntax tree
         tag : 'Scene',
         attr : {
             background : 0xffffff,
@@ -89,5 +88,6 @@ export default function transformer(AST){
         }
             
     }//end of while loop
-    console.log(three_ast);
+    
+    return three_ast;
 }
