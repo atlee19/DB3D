@@ -104,7 +104,7 @@ export default function parser(tokens){
                 }
                 else //we don't know what is following color
                 {
-                    throw '[Syntax error]: Color must be followed by either a Shape or Scene.'; 
+                    throw '[Syntax error]: A Color must be followed by either a Shape or Scene.'; 
                 }
                 break;
                 
@@ -164,6 +164,10 @@ export default function parser(tokens){
                     throw `[Syntax error]: Position takes (3) Number arguments. There are ${num_args_found} found.`;
                 
                 break;
+
+            default:
+                //could we provide more information?
+                throw '[Syntax error]: missing one of the following commands: Color, Size, or Position';
         }
 
     }//end of while loop
