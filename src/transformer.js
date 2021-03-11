@@ -51,7 +51,7 @@ export default function transformer(AST){
         body : []
     };
     var scene_object_count = 0;
-    var light_object_count = 0; //is it necessary to have a light counter? Explain why
+    // var light_object_count = 0; //is it necessary to have a light counter? Explain why
 
     while(AST.body.length > 0){
         var node = AST.body.shift();
@@ -94,8 +94,7 @@ export default function transformer(AST){
             }
             else if(node.arguments[0].type === 'LightLiteral'){
                 var scene_light_object = { 
-                    tag : 'SceneLightObject',
-                    id : ++light_object_count,
+                    tag : 'SceneLightAlteration',
                     attr : {
                         color : node.name,
                     }

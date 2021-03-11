@@ -20,8 +20,8 @@ export default function codegen(three_ast){
     code_result += `\n`
     
     //setup default lighting - I don't love this implmentation
-    let default_light_color = three_ast.attr.color;
-    let default_intensity = three_ast.attr.intensity;
+    var default_light_color = three_ast.attr.color;
+    var default_intensity = three_ast.attr.intensity;
     code_result += `const directionalLight = new THREE.DirectionalLight( ${default_light_color}, ${default_intensity} ); \n`;
     code_result += `directionalLight.position.set(1, 1, 0.5) \n`;
     code_result += `scene.add( directionalLight ); \n`;
@@ -62,8 +62,20 @@ export default function codegen(three_ast){
                 let z = parseFloat(current_node.attr.pos.z);
                 code_result += `${objectName}.position.set(${x}, ${y}, ${z}); \n`;
 
-                code_result += `\n`
+                code_result += `\n`;
                 break;
+
+            case 'SceneLightAlteration': //since we have a default then this is more of an alteration
+                console.log(current_node);
+                let new_light_color = current_node.attr.color;
+                new_light_color = `0x${color_transform(new_light_color)}`;
+                console.log(new_light_color);
+                code_result += `directionalLight.color.setHex(${new_light_color}); \n`;
+                code_result += `ambientLight.color.setHex(${new_light_color}); \n`;
+                code_result += `\n`;
+
+                break;
+
         }
     }
 
