@@ -101,6 +101,11 @@ export default function transformer(AST){
                 }
                 three_ast.body.push(scene_light_object);
             }
+            else
+            {
+                throw `[Transformation error]: Got an unrecongized ObjectLiteral. Expecting a
+                        ShapeLiteral, SceneLiteral, or LightLiteral.`
+            }
             //we should add an else that catches anything bad
             //and throws a transformer error
         }
