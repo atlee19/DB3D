@@ -52,7 +52,7 @@ const code = `
     Gray Scene
     White Light
     Blue Sphere Size 0.7 Position 0 0 -1
-    Red Cube Size 1 Position 2 0 -1
+    Purple Cube Size 1 Position 2 0 -1
     Green Cube Size 1 Position -2 0 -1
 `;
 

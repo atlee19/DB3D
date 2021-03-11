@@ -134,6 +134,7 @@ function color_transform(color){
         ['Red', 'ff002f'],
         ['Green', '09ff00'],
         ['Blue', '0091ff'],
+        ['Purple', '9900ff'],
         ['Black', '000000'],
         ['White', 'ffffff'],
         ['Gray', '808080']

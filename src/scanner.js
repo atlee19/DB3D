@@ -37,6 +37,7 @@ export default function scanner(source){
         ['Red', 'Color'],
         ['Green', 'Color'],
         ['Blue', 'Color'],
+        ['Purple', 'Color'],
         ['Black', 'Color'],
         ['White', 'Color'],
         ['Gray', 'Color'], 
