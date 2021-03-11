@@ -66,10 +66,8 @@ export default function codegen(three_ast){
                 break;
 
             case 'SceneLightAlteration': //since we have a default then this is more of an alteration
-                console.log(current_node);
                 let new_light_color = current_node.attr.color;
                 new_light_color = `0x${color_transform(new_light_color)}`;
-                console.log(new_light_color);
                 code_result += `directionalLight.color.setHex(${new_light_color}); \n`;
                 code_result += `ambientLight.color.setHex(${new_light_color}); \n`;
                 code_result += `\n`;
