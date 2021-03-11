@@ -44,31 +44,34 @@ db3d.transpile = function(code){
 // const code = 'Black Scene'; 
 //it should be optional. Like in DBN if paper is not present then its just white
 
-//good multiline
-// const code = `
-//     White Scene
-//     White Light
-//     Green Cube Size 1 Position 0 0 -1
-//     Blue Cube Size 1 Position 2 0 -1
-//     Red Cube Size 1 Position -2 0 -1
-// `;
+//transformation error - no size or pos
+// const code = 'Blue Cube';
 
+//good multiline
 const code = `
     White Scene
     White Light
-    
     Green Cube Size 1 Position 0 0 -1
     Blue Cube Size 1 Position 2 0 -1
     Red Cube Size 1 Position -2 0 -1
-
-    Green Cube Size 1 Position 0 -2 -1
-    Red Cube Size 1 Position -2 -2 -1
-    Blue Cube Size 1 Position 2 -2 -1
-
-    Green Cube Size 1 Position 0 2 -1
-    Red Cube Size 1 Position -2 2 -1
-    Blue Cube Size 1 Position 2 2 -1
 `;
+
+// const code = `
+//     White Scene
+//     White Light
+    
+//     Green Cube Size 1 Position 0 0 -1
+//     Blue Cube Size 1 Position 2 0 -1
+//     Red Cube Size 1 Position -2 0 -1
+
+//     Green Cube Size 1 Position 0 -2 -1
+//     Red Cube Size 1 Position -2 -2 -1
+//     Blue Cube Size 1 Position 2 -2 -1
+
+//     Green Cube Size 1 Position 0 2 -1
+//     Red Cube Size 1 Position -2 2 -1
+//     Blue Cube Size 1 Position 2 2 -1
+// `;
 
 //not our error: Blue Cube
 

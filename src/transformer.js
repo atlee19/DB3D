@@ -79,17 +79,24 @@ export default function transformer(AST){
                         geometry : node.arguments[0].value,
                     }
                 }
-                //add size
-                var size = AST.body.shift();
-                scene_object.attr.size = size.arguments[0].value;
-                //add position
-                var pos = AST.body.shift();
-                scene_object.attr.pos = {
-                    x : pos.arguments[0].value,
-                    y : pos.arguments[1].value,
-                    z : pos.arguments[2].value,
+                //if user forgot to add arguments to build a 3D object then throw error
+                try{
+                    //add size
+                    var size = AST.body.shift();
+                    scene_object.attr.size = size.arguments[0].value;
+                    //add position
+                    var pos = AST.body.shift();
+                    scene_object.attr.pos = {
+                        x : pos.arguments[0].value,
+                        y : pos.arguments[1].value,
+                        z : pos.arguments[2].value,
+                    }
+                }
+                catch (e){
+                    throw `[Transformation error]: To build a 3D Object it requires a Size, and Position.`;
                 }
 
+                //if all good then add it
                 three_ast.body.push(scene_object);
             }
             else if(node.arguments[0].type === 'LightLiteral'){
