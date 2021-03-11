@@ -32,12 +32,14 @@ export default function scanner(source){
     const words = source.replaceAll(/\s/g, ' ').split(' ');
     //array["Green", "Cube", "Size", "1", "Position", "0", "0", "-1"]
 
+    //idea: ['Color', ['Red', 'Green', 'Blue', ...]]
     const keywords = new Map([
         ['Red', 'Color'],
         ['Green', 'Color'],
         ['Blue', 'Color'],
         ['Black', 'Color'],
         ['White', 'Color'],
+        ['Gray', 'Color'], 
         ['Cube', 'Shape'],
         ['Sphere', 'Shape'],
         ['Cone', 'Shape'],
@@ -87,7 +89,7 @@ export default function scanner(source){
       //what about information pertaining to line error?
 
     });
-    
+
     return tokens;
 
 }

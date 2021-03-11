@@ -104,7 +104,8 @@ function color_transform(color){
         ['Green', '09ff00'],
         ['Blue', '0091ff'],
         ['Black', '000000'],
-        ['White', 'ffffff']
+        ['White', 'ffffff'],
+        ['Gray', '808080']
     ])
 
     return hex_color_map.get(color);
