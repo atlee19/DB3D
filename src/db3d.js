@@ -47,7 +47,7 @@ db3d.transpile = function(code){
 //good multiline
 const code = `
     Black Scene
-    Green Cube Size 1 Position 0 0 -1
+    Green Cube Size 2 Position 0 0 -1
     Blue Cube Size 1 Position 2 0 -1
     Red Cube Size 1 Position -2 0 -1
 `;

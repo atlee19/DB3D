@@ -35,8 +35,9 @@ export default function codegen(three_ast){
                 let id = current_node.id;
                 let objectName = `${current_node.attr.geometry}_${id}`;
                 //setup geometry
-                let shapeType = shape_transform(current_node.attr.geometry);
-                code_result += `const geometry_${id} = new THREE.${shapeType}(); \n`;
+                let geometry_type = shape_transform(current_node.attr.geometry);
+                let size = parseFloat(current_node.attr.size);
+                code_result += `const geometry_${id} = new THREE.${geometry_type}(${size}, ${size}, ${size}); \n`;
                 //set color
                 let shape_color = current_node.attr.color;
                 shape_color = `0x${color_transform(shape_color)}`;
