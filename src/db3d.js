@@ -51,9 +51,9 @@ db3d.transpile = function(code){
 const code = `
     Gray Scene
     White Light
-    Red Cube Size 1 Position 0 0 -1
-    Green Cube Size 1 Position 2 0 -1
-    Blue Cube Size 1 Position -2 0 -1
+    Blue Sphere Size 0.7 Position 0 0 -1
+    Red Cube Size 1 Position 2 0 -1
+    Green Cube Size 1 Position -2 0 -1
 `;
 
 // const code = `

@@ -42,7 +42,6 @@ export default function scanner(source){
         ['Gray', 'Color'], 
         ['Cube', 'Shape'],
         ['Sphere', 'Shape'],
-        ['Cone', 'Shape'],
         ['Scene', 'Scene'],
         ['Size', 'Size'],
         ['Position', 'Position'],

@@ -43,12 +43,17 @@ export default function codegen(three_ast){
                 break;
 
             case 'SceneObject':
+                /*optimization idea: if we have mulptile instances of the same geometry
+                  then we can just duplicate the same geometry and save a little bit of memory?
+                */
+
                 let id = current_node.id;
                 let objectName = `${current_node.attr.geometry}_${id}`;
                 //setup geometry
                 let geometry_type = shape_transform(current_node.attr.geometry);
                 let size = parseFloat(current_node.attr.size);
-                code_result += `const geometry_${id} = new THREE.${geometry_type}(${size}, ${size}, ${size}); \n`;
+                let geo_params = universal_geo_transform(geometry_type, size);
+                code_result += `const geometry_${id} = new THREE.${geometry_type}(${geo_params.param1}, ${geo_params.param2}, ${geo_params.param3}); \n`;
                 //set color
                 let shape_color = current_node.attr.color;
                 shape_color = `0x${color_transform(shape_color)}`;
@@ -87,9 +92,35 @@ export default function codegen(three_ast){
     return code_result;
 }
 
+
+function universal_geo_transform(geometry, size){
+    let geo_params = {
+        param1 : 0,
+        param2 : 0,
+        param3 : 0,
+    }
+    switch(geometry){
+        case 'BoxGeometry':
+            geo_params.param1 = size; //ugh feels so repetitive
+            geo_params.param2 = size;
+            geo_params.param3 = size;
+            break;
+        
+        case 'SphereGeometry':
+            geo_params.param1 = size;
+            geo_params.param2 = 64;
+            geo_params.param3 = 64;
+            break;
+    }
+
+    return geo_params;
+}
+
+
 function shape_transform(shape){
     var shape_three_map = new Map([
-        ['Cube', 'BoxGeometry']
+        ['Cube', 'BoxGeometry'],
+        ['Sphere', 'SphereGeometry']
         //add sphere
         //add etc.
     ])
