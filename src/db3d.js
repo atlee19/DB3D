@@ -22,6 +22,8 @@ db3d.transpile = function(code){
     console.log(three_ast);
     let code_result = this.codegen(three_ast);
     console.log(code_result);
+
+    //later on we might want to seperate this logic from transpile function
     let script = document.createElement('script');
     script.innerHTML = code_result;
     document.body.appendChild(script);
@@ -50,6 +52,13 @@ const code = `
     Red Cube Size 1 Position -2 0 -1
 `;
 
+//not our error: Blue Cube
+
+//White Light
+//or
+//White DirectionalLight Position 0 10 0
+//White AmbientLight
+
 //faulty arugments
 // const code = `
 //     Black Scene
@@ -61,8 +70,4 @@ const code = `
     language we might not need to handles this but take it under consideration.
 */
 
-
-
-
-const transpiled_result = db3d.transpile(code);
-//document append script
+db3d.transpile(code);

@@ -14,7 +14,7 @@ export default function codegen(three_ast){
     code_result += `scene.background = new THREE.Color( ${default_color} ); \n`;
     code_result += `const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 ); \n`;
     code_result += `camera.position.z = 5; \n`;
-    code_result += `const renderer = new THREE.WebGLRenderer(); \n`;
+    code_result += `const renderer = new THREE.WebGLRenderer({ antialias: true}); \n`;
     code_result += `renderer.setSize( window.innerWidth, window.innerHeight ); \n`;
     code_result += `document.body.appendChild( renderer.domElement ); \n`
     code_result += `\n`
