@@ -113,7 +113,7 @@ export default function parser(tokens){
                 }
                 else //we don't know what is following color
                 {
-                    throw '[Syntax error]: A Color must be followed by either a Shape or Scene.'; 
+                    throw '[Syntax error]: A Color must be followed by either a Shape, Scene or a Light.'; 
                 }
                 break;
                 
