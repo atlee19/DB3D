@@ -1,5 +1,6 @@
 //3 syntax types 
-//ObjectLiteral Shape Scene
+//ObjectLiteral Shape Scene, Light
+//OL sub categories: ShapeLiteral, SceneLiteral, LightLiteral
 //NumberLiteral - 1, 0, 0, -1
 //CallExpression Color, Size, Position
 
@@ -79,7 +80,7 @@ export default function parser(tokens){
                     start_of_expression : true,
                     arguments : []
                 }
-                //get the arguments - can either be a shape OR scene
+                //get the arguments - can either be a shape, scene, or a light
                 var color_argument = tokens.shift();
                 if(color_argument.type == 'Shape'){
                     color_expression.arguments.push({
@@ -101,6 +102,14 @@ export default function parser(tokens){
                     else{
                         throw 'Scene has already been declared';
                     }
+                }
+                else if(color_argument.type == 'Light'){
+                    //we can have duplicate light objects
+                    color_expression.arguments.push({
+                        type : 'LightLiteral',
+                        value : color_argument.value,
+                    })
+                    AST.body.push(color_expression);
                 }
                 else //we don't know what is following color
                 {

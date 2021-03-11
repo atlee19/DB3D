@@ -41,17 +41,23 @@ Output:
 }
 */
 export default function transformer(AST){
-    var three_ast = { //this could also be called a concrete syntax tree
+    var three_ast = { 
         tag : 'Scene',
         attr : {
             background : 0xffffff,
+            color : 0xffffff,
+            intensity : 1, //why even have this default if we're not allowing customization
         },
         body : []
     };
     var scene_object_count = 0;
+    var light_object_count = 0; //is it necessary to have a light counter? Explain why
 
     while(AST.body.length > 0){
         var node = AST.body.shift();
+        // console.log(node);
+        //we have to wade through our call expressions and dig into their arugments. 
+        //We first check that color is the start of an expression 
         if(node.start_of_expression){
             //it can be a scene literal where we grab 1 thing in itself
             if(node.arguments[0].type === 'SceneLiteral'){
@@ -86,6 +92,18 @@ export default function transformer(AST){
 
                 three_ast.body.push(scene_object);
             }
+            else if(node.arguments[0].type === 'LightLiteral'){
+                var scene_light_object = { 
+                    tag : 'SceneLightObject',
+                    id : ++light_object_count,
+                    attr : {
+                        color : node.name,
+                    }
+                }
+                three_ast.body.push(scene_light_object);
+            }
+            //we should add an else that catches anything bad
+            //and throws a transformer error
         }
             
     }//end of while loop

@@ -1,10 +1,14 @@
 //case sensitive -> yes
 
-//4 Token types
+//5 Token types
 //color
 //shape
 //size
 //position
+//light
+
+//you really need to emphasize the difference between the scanner 
+//and the parser
 
 //Input: Green Cube Size 1 Position 0 0 -1
 /*Expected output: tokens:[
@@ -39,7 +43,8 @@ export default function scanner(source){
         ['Cone', 'Shape'],
         ['Scene', 'Scene'],
         ['Size', 'Size'],
-        ['Position', 'Position']
+        ['Position', 'Position'],
+        ['Light', 'Light'],
     ])
 
     words.forEach(word => {
@@ -82,7 +87,7 @@ export default function scanner(source){
       //what about information pertaining to line error?
 
     });
-
+    
     return tokens;
 
 }

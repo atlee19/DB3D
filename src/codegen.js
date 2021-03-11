@@ -10,14 +10,25 @@ export default function codegen(three_ast){
 
     //intial scene setup
     code_result += `const scene = new THREE.Scene(); \n`;
-    let default_color = three_ast.attr.background;
-    code_result += `scene.background = new THREE.Color( ${default_color} ); \n`;
+    let default_bg_color = three_ast.attr.background;
+    code_result += `scene.background = new THREE.Color( ${default_bg_color} ); \n`;
     code_result += `const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 ); \n`;
     code_result += `camera.position.z = 5; \n`;
     code_result += `const renderer = new THREE.WebGLRenderer({ antialias: true}); \n`;
     code_result += `renderer.setSize( window.innerWidth, window.innerHeight ); \n`;
     code_result += `document.body.appendChild( renderer.domElement ); \n`
     code_result += `\n`
+    
+    //setup default lighting - I don't love this implmentation
+    let default_light_color = three_ast.attr.color;
+    let default_intensity = three_ast.attr.intensity;
+    code_result += `const directionalLight = new THREE.DirectionalLight( ${default_light_color}, ${default_intensity} ); \n`;
+    code_result += `directionalLight.position.set(1, 1, 0.5) \n`;
+    code_result += `scene.add( directionalLight ); \n`;
+    //default_intensity / 2
+    code_result += `const ambientLight = new THREE.AmbientLight( ${default_light_color}, 0.5 ); \n`;
+    code_result += `scene.add( ambientLight ); \n`
+    code_result += `\n`;
 
     //add our scene objects and check for scene alterations
     while(three_ast.body.length > 0){
@@ -41,7 +52,7 @@ export default function codegen(three_ast){
                 //set color
                 let shape_color = current_node.attr.color;
                 shape_color = `0x${color_transform(shape_color)}`;
-                code_result += `const material_${id} = new THREE.MeshBasicMaterial( { color: ${shape_color} } ); \n`;
+                code_result += `const material_${id} = new THREE.MeshPhongMaterial( { color: ${shape_color} } ); \n`;
                 code_result += `const ${objectName} = new THREE.Mesh( geometry_${id}, material_${id} ); \n`;
                 //add to scene
                 code_result += `scene.add(${objectName}); \n`;

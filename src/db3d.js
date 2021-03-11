@@ -12,14 +12,14 @@ db3d.codegen = codegen;
 
 db3d.transpile = function(code){
     let tokens = this.scanner(code);
-    console.log('TOKENS:');
-    console.log(tokens);
+    // console.log('TOKENS:');
+    // console.log(tokens);
     let ast = this.parser(tokens);
-    console.log('AST:');
-    console.log(ast);
+    // console.log('AST:');
+    // console.log(ast);
     let three_ast = this.transformer(ast);
-    console.log('Three AST:')
-    console.log(three_ast);
+    // console.log('Three AST:')
+    // console.log(three_ast);
     let code_result = this.codegen(three_ast);
     console.log(code_result);
 
@@ -47,14 +47,15 @@ db3d.transpile = function(code){
 //good multiline
 const code = `
     Black Scene
-    Green Cube Size 2 Position 0 0 -1
+    White Light
+    Green Cube Size 1 Position 0 0 -1
     Blue Cube Size 1 Position 2 0 -1
     Red Cube Size 1 Position -2 0 -1
 `;
 
 //not our error: Blue Cube
 
-//White Light
+//White Light //default light
 //or
 //White DirectionalLight Position 0 10 0
 //White AmbientLight
