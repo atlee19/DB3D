@@ -36,8 +36,12 @@ export default function scanner(source){
     const keywords = new Map([
         ['Red', 'Color'],
         ['Green', 'Color'],
+        ['Lime', 'Color'],
         ['Blue', 'Color'],
+        ['Aqua', 'Color'],
         ['Purple', 'Color'],
+        ['Yellow', 'Color'],
+        ['Orange', 'Color'],
         ['Black', 'Color'],
         ['White', 'Color'],
         ['Gray', 'Color'], 

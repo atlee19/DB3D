@@ -131,10 +131,14 @@ function shape_transform(shape){
 
 function color_transform(color){
     var hex_color_map = new Map([
-        ['Red', 'ff002f'],
-        ['Green', '09ff00'],
-        ['Blue', '0091ff'],
-        ['Purple', '9900ff'],
+        ['Red', 'ff0000'],
+        ['Green', '008000'],
+        ['Lime', '00ff00'],
+        ['Blue', '0000ff'],
+        ['Aqua', '00ffff'],
+        ['Purple', '800080'],
+        ['Yellow', 'ffff00'],
+        ['Orange', 'ffa500'],
         ['Black', '000000'],
         ['White', 'ffffff'],
         ['Gray', '808080']

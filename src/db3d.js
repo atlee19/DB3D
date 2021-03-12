@@ -51,10 +51,26 @@ db3d.transpile = function(code){
 const code = `
     Gray Scene
     White Light
-    Blue Sphere Size 0.7 Position 0 0 -1
-    Purple Cube Size 1 Position 2 0 -1
-    Green Cube Size 1 Position -2 0 -1
+    Lime Sphere Size 0.7 Position 0 0 -1
+    Orange Cube Size 1 Position 2 0 -1
+    White Cube Size 1 Position -2 0 -1
 `;
+
+// const code = `
+//     Black Scene
+//     Blue Sphere Size 0.5 Position 0 0 0
+//     Blue Sphere Size 0.5 Position 0 1.5 0
+//     Blue Sphere Size 0.5 Position 0 -1.5 0
+
+//     Green Sphere Size 0.4 Position 1.5 0 0
+//     Green Sphere Size 0.4 Position -1.5 0 0
+
+//     Red Sphere Size 0.3 Position 2.5 0 0
+//     Red Sphere Size 0.3 Position -2.5 0 0
+
+//     Purple Sphere Size 0.3 Position 1.5 1.5 0
+//     Purple Sphere Size 0.3 Position -1.5 1.5 0
+// `;
 
 // const code = `
 //     White Scene
