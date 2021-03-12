@@ -23,10 +23,7 @@ db3d.transpile = function(code){
     let code_result = this.codegen(three_ast);
     console.log(code_result);
 
-    //later on we might want to seperate this logic from transpile function
-    let script = document.createElement('script');
-    script.innerHTML = code_result;
-    document.body.appendChild(script);
+    return code_result;
 }
 
 //TEST CASES
@@ -107,4 +104,9 @@ const code = `
     language we might not need to handles this but take it under consideration.
 */
 
-db3d.transpile(code);
+let transpiled_code = db3d.transpile(code);
+
+//seperate this logic from transpile function
+let script = document.createElement('script');
+script.innerHTML = transpiled_code;
+document.body.appendChild(script);
