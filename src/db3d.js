@@ -26,6 +26,8 @@ db3d.transpile = function(code){
     return code_result;
 }
 
+export default db3d;
+
 //TEST CASES
 
 //good code
@@ -45,13 +47,13 @@ db3d.transpile = function(code){
 // const code = 'Blue Cube';
 
 //good multiline
-const code = `
-    Gray Scene
-    White Light
-    Lime Sphere Size 0.7 Position 0 0 -1
-    Orange Cube Size 1 Position 2 0 -1
-    White Cube Size 1 Position -2 0 -1
-`;
+// const code = `
+//     Gray Scene
+//     White Light
+//     Lime Sphere Size 0.7 Position 0 0 -1
+//     Orange Cube Size 1 Position 2 0 -1
+//     White Cube Size 1 Position -2 0 -1
+// `;
 
 // const code = `
 //     Black Scene
@@ -104,9 +106,9 @@ const code = `
     language we might not need to handles this but take it under consideration.
 */
 
-let transpiled_code = db3d.transpile(code);
+// let transpiled_code = db3d.transpile(code);
 
-//seperate this logic from transpile function
-let script = document.createElement('script');
-script.innerHTML = transpiled_code;
-document.body.appendChild(script);
+// //seperate this logic from transpile function
+// let script = document.createElement('script');
+// script.innerHTML = transpiled_code;
+// document.body.appendChild(script);
