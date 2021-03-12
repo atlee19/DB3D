@@ -12,12 +12,23 @@ export default function codegen(three_ast){
     code_result += `const scene = new THREE.Scene(); \n`;
     let default_bg_color = three_ast.attr.background;
     code_result += `scene.background = new THREE.Color( ${default_bg_color} ); \n`;
-    code_result += `const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 ); \n`;
+    code_result += `const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight , 0.1, 1000 ); \n`;
     code_result += `camera.position.z = 5; \n`;
-    code_result += `const renderer = new THREE.WebGLRenderer({ antialias: true}); \n`;
-    code_result += `renderer.setSize( window.innerWidth, window.innerHeight ); \n`;
+    code_result += `var container = document.getElementById( 'db3d-canvas' );` //specific to demo page
+    code_result += `const renderer = new THREE.WebGLRenderer({ antialias: true, canvas : container }); \n`;
+    code_result += `renderer.setSize( window.innerWidth / 2, window.innerHeight / 2 ); \n`;
     code_result += `document.body.appendChild( renderer.domElement ); \n`
     code_result += `\n`
+    
+    //window resizing code
+    code_result += `window.addEventListener('resize', function(){
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        renderer.setSize(width / 2, height / 2);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+    })
+\n`;
     
     //setup default lighting - I don't love this implmentation
     var default_light_color = three_ast.attr.color;
