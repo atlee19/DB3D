@@ -14,10 +14,11 @@ export default function codegen(three_ast){
     code_result += `scene.background = new THREE.Color( ${default_bg_color} ); \n`;
     code_result += `var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight , 0.1, 1000 ); \n`;
     code_result += `camera.position.z = 5; \n`;
-    code_result += `var container = document.getElementById( 'db3d-canvas' );` //specific to demo page
-    code_result += `var renderer = new THREE.WebGLRenderer({ antialias: true, canvas : container }); \n`;
+    code_result += `var dbcanvas = document.getElementById( 'db3d-canvas' ); \n` //specific to demo page
+    code_result += `var container = document.getElementById( 'scene-container' ); \n`
+    code_result += `var renderer = new THREE.WebGLRenderer({ antialias: true, canvas : dbcanvas }); \n`;
     code_result += `renderer.setSize( window.innerWidth / 2, window.innerHeight / 2 ); \n`;
-    code_result += `document.body.appendChild( renderer.domElement ); \n`
+    code_result += `container.appendChild( renderer.domElement ); \n`
     code_result += `\n`
     
     //window resizing code

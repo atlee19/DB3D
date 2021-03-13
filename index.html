@@ -9,9 +9,14 @@
 		<link rel="stylesheet" href="./codemirror-5.59.4/lib/codemirror.css">
 		<title>DB3D Demo</title>
 		<style>
-			body { margin: 0; }
+			/* body { margin: 0; } */
 
-			#db3d-canvas{
+			#scene-container{
+				padding-top: 5%;
+			}
+
+			#code-container{
+				padding-top: 5%;
 			}
 		</style>
 	</head>
@@ -19,28 +24,30 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.js"></script>
 		<script src="./codemirror-5.59.4/lib/codemirror.js"></script>
 
-		<div class="container-fluid">
+		<div class="container">
 			<div class="row">
 
-				<div class="col">
-					<h2>Three Scene</h2>
-					<!-- DB3D canvas -->
+				<div class="col" id="scene-container">
+					<!-- <h2>Three Scene</h2> -->
 					<canvas id="db3d-canvas"><canvas>
 				</div>
 
-				<div id="code-editor" class="col">
-				  <h2>Code Editor</h2>
-				  	<!-- Create a simple CodeMirror instance -->
+				<div id="code-container" class="col">
+				  <!-- <h2>Code Editor</h2> -->
 					<script type="module">
+
 						import db3d from './src/db3d.js';
-						var editor = CodeMirror(document.getElementById('code-editor'), {
+
+						var editor = CodeMirror(document.getElementById('code-container'), {
 							lineNumbers: true
 						});
+
 						editor.on('update', function (e, cm) {
 							let code = editor.getValue();
 							let code_result = db3d.transpile(code);
 							var element =  document.getElementById('threejs-code');
 							// prevent duplicate additon of same script. Explicit check
+							//we might not even need this if we take out the id tag
 							if (typeof(element) != 'undefined' && element != null)
 							{
 								element.remove();
