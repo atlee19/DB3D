@@ -6,19 +6,18 @@
 
 		<!-- Bootstrap CSS -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-		
+		<link rel="stylesheet" href="./codemirror-5.59.4/lib/codemirror.css">
 		<title>DB3D Demo</title>
 		<style>
 			body { margin: 0; }
 
 			#db3d-canvas{
-
 			}
 		</style>
 	</head>
 	<body>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.js"></script>
-		<!-- <script type="module" src="./src/db3d.js"></script> -->
+		<script src="./codemirror-5.59.4/lib/codemirror.js"></script>
 
 		<div class="container-fluid">
 			<div class="row">
@@ -29,17 +28,28 @@
 					<canvas id="db3d-canvas"><canvas>
 				</div>
 
-				<div class="col">
+				<div id="code-editor" class="col">
 				  <h2>Code Editor</h2>
-
-				  	<!-- DB3D code -->
+				  	<!-- Create a simple CodeMirror instance -->
 					<script type="module">
 						import db3d from './src/db3d.js';
-						const code = 'Black Scene Lime Cube Size 1 Position 1 0 0'
-						const code_result = db3d.transpile(code);
-						let script = document.createElement('script');
-						script.innerHTML = code_result;
-						document.body.appendChild(script);
+						var editor = CodeMirror(document.getElementById('code-editor'), {
+							lineNumbers: true
+						});
+						editor.on('update', function (e, cm) {
+							let code = editor.getValue();
+							let code_result = db3d.transpile(code);
+							var element =  document.getElementById('threejs-code');
+							// prevent duplicate additon of same script. Explicit check
+							if (typeof(element) != 'undefined' && element != null)
+							{
+								element.remove();
+							}
+							let script = document.createElement('script');
+							script.setAttribute('id', 'threejs-code');
+							script.innerHTML = code_result;
+							document.body.appendChild(script);
+						})
 					</script>
 				</div>
 

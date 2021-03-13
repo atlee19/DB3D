@@ -9,13 +9,13 @@ export default function codegen(three_ast){
     var code_result = ``;
 
     //intial scene setup
-    code_result += `const scene = new THREE.Scene(); \n`;
+    code_result += `var scene = new THREE.Scene(); \n`;
     let default_bg_color = three_ast.attr.background;
     code_result += `scene.background = new THREE.Color( ${default_bg_color} ); \n`;
-    code_result += `const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight , 0.1, 1000 ); \n`;
+    code_result += `var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight , 0.1, 1000 ); \n`;
     code_result += `camera.position.z = 5; \n`;
     code_result += `var container = document.getElementById( 'db3d-canvas' );` //specific to demo page
-    code_result += `const renderer = new THREE.WebGLRenderer({ antialias: true, canvas : container }); \n`;
+    code_result += `var renderer = new THREE.WebGLRenderer({ antialias: true, canvas : container }); \n`;
     code_result += `renderer.setSize( window.innerWidth / 2, window.innerHeight / 2 ); \n`;
     code_result += `document.body.appendChild( renderer.domElement ); \n`
     code_result += `\n`
@@ -33,11 +33,11 @@ export default function codegen(three_ast){
     //setup default lighting - I don't love this implmentation
     var default_light_color = three_ast.attr.color;
     var default_intensity = three_ast.attr.intensity;
-    code_result += `const directionalLight = new THREE.DirectionalLight( ${default_light_color}, ${default_intensity} ); \n`;
+    code_result += `var directionalLight = new THREE.DirectionalLight( ${default_light_color}, ${default_intensity} ); \n`;
     code_result += `directionalLight.position.set(1, 1, 0.5) \n`;
     code_result += `scene.add( directionalLight ); \n`;
     //default_intensity / 2
-    code_result += `const ambientLight = new THREE.AmbientLight( ${default_light_color}, 0.5 ); \n`;
+    code_result += `var ambientLight = new THREE.AmbientLight( ${default_light_color}, 0.5 ); \n`;
     code_result += `scene.add( ambientLight ); \n`
     code_result += `\n`;
 
@@ -64,12 +64,12 @@ export default function codegen(three_ast){
                 let geometry_type = shape_transform(current_node.attr.geometry);
                 let size = parseFloat(current_node.attr.size);
                 let geo_params = universal_geo_transform(geometry_type, size);
-                code_result += `const geometry_${id} = new THREE.${geometry_type}(${geo_params.param1}, ${geo_params.param2}, ${geo_params.param3}); \n`;
+                code_result += `var geometry_${id} = new THREE.${geometry_type}(${geo_params.param1}, ${geo_params.param2}, ${geo_params.param3}); \n`;
                 //set color
                 let shape_color = current_node.attr.color;
                 shape_color = `0x${color_transform(shape_color)}`;
-                code_result += `const material_${id} = new THREE.MeshPhongMaterial( { color: ${shape_color} } ); \n`;
-                code_result += `const ${objectName} = new THREE.Mesh( geometry_${id}, material_${id} ); \n`;
+                code_result += `var material_${id} = new THREE.MeshPhongMaterial( { color: ${shape_color} } ); \n`;
+                code_result += `var ${objectName} = new THREE.Mesh( geometry_${id}, material_${id} ); \n`;
                 //add to scene
                 code_result += `scene.add(${objectName}); \n`;
                 //set position
@@ -94,7 +94,7 @@ export default function codegen(three_ast){
     }
 
     //animation
-    code_result += `const animate = function () { \n`
+    code_result += `var animate = function () { \n`
     code_result += `    requestAnimationFrame( animate ); \n`
     code_result += `    renderer.render( scene, camera ); \n`
     code_result += `}; \n`;
