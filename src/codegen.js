@@ -18,6 +18,8 @@ export default function codegen(three_ast){
     code_result += `var container = document.getElementById( 'scene-container' ); \n`
     code_result += `var renderer = new THREE.WebGLRenderer({ antialias: true, canvas : dbcanvas }); \n`;
     code_result += `renderer.setSize( window.innerWidth / 2, window.innerHeight / 2 ); \n`;
+    code_result += `renderer.gammaFactor = 2.2; \n`;
+    code_result += `renderer.outputEncoding = THREE.sRGBEncoding; \n`;
     code_result += `container.appendChild( renderer.domElement ); \n`
     code_result += `\n`
     
@@ -41,6 +43,8 @@ export default function codegen(three_ast){
     code_result += `var ambientLight = new THREE.AmbientLight( ${default_light_color}, 0.5 ); \n`;
     code_result += `scene.add( ambientLight ); \n`
     code_result += `\n`;
+    // code_result += `var hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820, 4); \n`;
+    // code_result += `scene.add(hemiLight);\n`;
 
     //add our scene objects and check for scene alterations
     while(three_ast.body.length > 0){
@@ -70,6 +74,7 @@ export default function codegen(three_ast){
                 let shape_color = current_node.attr.color;
                 shape_color = `0x${color_transform(shape_color)}`;
                 code_result += `var material_${id} = new THREE.MeshPhongMaterial( { color: ${shape_color} } ); \n`;
+                code_result += `material_${id}.color.convertSRGBToLinear(); \n`;
                 code_result += `var ${objectName} = new THREE.Mesh( geometry_${id}, material_${id} ); \n`;
                 //add to scene
                 code_result += `scene.add(${objectName}); \n`;
@@ -143,17 +148,17 @@ function shape_transform(shape){
 
 function color_transform(color){
     var hex_color_map = new Map([
-        ['Red', 'ff0000'],
-        ['Green', '008000'],
-        ['Lime', '00ff00'],
-        ['Blue', '0000ff'],
-        ['Aqua', '00ffff'],
-        ['Purple', '800080'],
-        ['Yellow', 'ffff00'],
-        ['Orange', 'ffa500'],
-        ['Black', '000000'],
-        ['White', 'ffffff'],
-        ['Gray', '808080']
+        ['Red', 'f94144'],
+        ['Green', '40916c'],
+        ['Lime', '70e000'],
+        ['Blue', '118ab2'],
+        ['Aqua', '9bf6ff'],
+        ['Purple', '9d4edd'],
+        ['Yellow', 'ffba08'],
+        ['Orange', 'f3722c'],
+        ['Black', '212529'],
+        ['White', 'fffffc'],
+        ['Gray', 'adb5bd']
     ])
 
     return hex_color_map.get(color);
