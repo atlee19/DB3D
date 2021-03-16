@@ -119,12 +119,18 @@ function param_transform(geometry, size){
             func_args = `(${size}, ${size}, ${size})`;
             completed_func += func_args;
             break;
+
         case 'SphereGeometry':
             func_args = `(${size}, 64, 64)`;
             completed_func += func_args;
+            break;
+
+        case 'CylinderGeometry':
+            func_args = `(${size}, ${size}, ${size}, 64)`
+            completed_func += func_args;
+            break;
 
     }
-    // console.log(completed_func);
     return completed_func;
 }
 
