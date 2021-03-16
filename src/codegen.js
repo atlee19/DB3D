@@ -126,7 +126,12 @@ function param_transform(geometry, size){
             break;
 
         case 'CylinderGeometry':
-            func_args = `(${size}, ${size}, ${size}, 64)`
+            func_args = `(${size}, ${size}, ${size}, 64)`;
+            completed_func += func_args;
+            break;
+        
+        case 'ConeGeometry':
+            func_args = `(${size}, 2, 64)`;
             completed_func += func_args;
             break;
 
@@ -140,6 +145,7 @@ function shape_transform(shape){
         ['Cube', 'BoxGeometry'],
         ['Sphere', 'SphereGeometry'],
         ['Cylinder', 'CylinderGeometry'],
+        ['Cone', 'ConeGeometry'],
         //add etc.
     ])
 

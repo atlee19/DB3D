@@ -48,6 +48,7 @@ export default function scanner(source){
         ['Cube', 'Shape'],
         ['Sphere', 'Shape'],
         ['Cylinder', 'Shape'],
+        ['Cone', 'Shape'],
         ['Scene', 'Scene'],
         ['Size', 'Size'],
         ['Position', 'Position'],
