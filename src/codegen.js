@@ -68,8 +68,9 @@ export default function codegen(three_ast){
                 //setup geometry
                 let geometry_type = shape_transform(current_node.attr.geometry);
                 let size = parseFloat(current_node.attr.size);
-                let geo_params = universal_geo_transform(geometry_type, size);
-                code_result += `var geometry_${id} = new THREE.${geometry_type}(${geo_params.param1}, ${geo_params.param2}, ${geo_params.param3}); \n`;
+                // let geo_params = universal_geo_transform(geometry_type, size);
+                let geo_func = param_transform(geometry_type, size);
+                code_result += `var geometry_${id} = new THREE.${geo_func}; \n`;
                 //set color
                 let shape_color = current_node.attr.color;
                 shape_color = `0x${color_transform(shape_color)}`;
@@ -110,35 +111,29 @@ export default function codegen(three_ast){
 }
 
 
-function universal_geo_transform(geometry, size){
-    let geo_params = {
-        param1 : 0,
-        param2 : 0,
-        param3 : 0,
-    }
-    switch(geometry){
+function param_transform(geometry, size){
+    let completed_func = geometry; 
+    let func_args = '';
+    switch (geometry){
         case 'BoxGeometry':
-            geo_params.param1 = size; //ugh feels so repetitive
-            geo_params.param2 = size;
-            geo_params.param3 = size;
+            func_args = `(${size}, ${size}, ${size})`;
+            completed_func += func_args;
             break;
-        
         case 'SphereGeometry':
-            geo_params.param1 = size;
-            geo_params.param2 = 64;
-            geo_params.param3 = 64;
-            break;
-    }
+            func_args = `(${size}, 64, 64)`;
+            completed_func += func_args;
 
-    return geo_params;
+    }
+    // console.log(completed_func);
+    return completed_func;
 }
 
 
 function shape_transform(shape){
     var shape_three_map = new Map([
         ['Cube', 'BoxGeometry'],
-        ['Sphere', 'SphereGeometry']
-        //add sphere
+        ['Sphere', 'SphereGeometry'],
+        ['Cylinder', 'CylinderGeometry'],
         //add etc.
     ])
 
